@@ -17,7 +17,7 @@ import gc
 import datetime
 import emoji
 import contractions
-from pytorchtools import EarlyStopping
+from src.pytorchtools import EarlyStopping
 import torch.nn.functional as F
 import json
 import nrclex

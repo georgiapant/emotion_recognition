@@ -14,7 +14,7 @@ import gc
 import datetime
 import emoji
 import contractions
-from pytorchtools import EarlyStopping
+from src.pytorchtools import EarlyStopping
 
 """
 Idea from this paper: https://aclanthology.org/2021.findings-emnlp.219.pdf 
@@ -356,6 +356,7 @@ class BertClassifier(nn.Module):
 
         else:
             output = self.bert(input_ids=input_ids, attention_mask=attention_mask)[1][-1]
+
         # last_hidden_state_cls = output[0]
         lstm, _ = self.LSTM(output)
         drop = self.bert_drop(lstm[:, 0, :])  

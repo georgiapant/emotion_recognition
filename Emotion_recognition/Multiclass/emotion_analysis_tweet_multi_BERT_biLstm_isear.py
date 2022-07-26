@@ -223,10 +223,8 @@ class BertClassifier(nn.Module):
         D_in, H, D_out = 768, 200, num_labels
 
         # Instantiate BERT model
-
         self.bert = BertModel.from_pretrained(BERT_MODEL, problem_type="multi_label_classification")  # , config=config)
-        # self.bert = RobertaModel.from_pretrained(BERT_MODEL)
-        self.bert_drop = nn.Dropout(0.5)
+        self.bert_drop = nn.Dropout(0.3)
 
         if bidirectional:
             self.LSTM = nn.LSTM(D_in, H, num_layers=1, bidirectional=True, batch_first=True)
@@ -263,14 +261,13 @@ class BertClassifier(nn.Module):
 
         # Original code
         output = self.bert(input_ids=input_ids, attention_mask=attention_mask)[0]
-
-        # LSTM v1
         lstm, (h,c) = self.LSTM(output)
-        # xx = lstm[-1]
-        # hidden_last_cell = h[-1]
         lstm_output = lstm[:, 0, :]
         drop = self.bert_drop(lstm_output)
         logits = self.linear(drop)
+        # LSTM v1
+        # xx = lstm[-1]
+        # hidden_last_cell = h[-1]
 
 
 

@@ -202,19 +202,16 @@ def cnn(vocab_size, embedding_matrix):
     # Convolution
     kernel_size = 3
     filters = 256
-
     model = Sequential()
     model.add(embedding_layer)
     model.add(Conv1D(filters, kernel_size, activation='relu'))
-    model.add(Conv1D(filters=256, kernel_size=4, padding='same', activation='relu')) # new
-    model.add(Conv1D(filters=256, kernel_size=5, padding='same', activation='relu')) # new
-
+    model.add(Conv1D(filters=256, kernel_size=4, padding='same', activation='relu'))
+    model.add(Conv1D(filters=256, kernel_size=5, padding='same', activation='relu'))
     model.add(GlobalMaxPooling1D())
-    model.add(Dropout(0.2)) # new
-    model.add(Flatten()) # new
+    model.add(Dropout(0.2))
+    model.add(Flatten())
     model.add(Dense(256, activation='relu'))
     model.add(Dense(num_classes, activation='softmax'))
-
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
     model.summary()
     return model
@@ -238,12 +235,12 @@ def lstm(vocab_size, embedding_matrix):
         # model.add(GRU(units=gru_output_size, dropout=0.2, recurrent_dropout=0.2))
         model.add((LSTM(64, return_sequences=False)))
 
-    model.add(Dropout(0.2)) #0.6
+    model.add(Dropout(0.2))
     model.add(Dense(num_classes, activation='softmax'))
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
     model.summary()
-    return model
 
+    return model
 
 def training(X_train, y_train, X_dev, y_dev):
     X_train_pad, X_dev_pad, vocab_size, embedding_matrix = create_embedding_matrix(X_train, X_dev,
