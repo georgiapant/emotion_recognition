@@ -1,6 +1,6 @@
 # Emotion Recognition
 
-###This repo currently includes:
+### This repo currently includes:
 
 - Five different approaches to emotion recognition. most of which include stacking on BERT output other layers
   - Bi-LSTM layer
